@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">NewsApplication</string>
+    <string name="news_list_screen_title">News Headlines</string>
+    <string name="article_with_no_title">No title</string>
+    <string name="article_back_button_text">Back</string>
+</resources>
