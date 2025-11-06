@@ -41,7 +41,7 @@ class GetNewsHeadlinesUseCaseTest {
         coVerify(exactly = 1) {
             newsRepository.getNewsHeadlines(
                 country = "us",
-                pageSize = 10, // FIX: This value must match the "WHEN" block's value.
+                pageSize = 10,
                 page = 1
             )
         }

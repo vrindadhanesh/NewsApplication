@@ -56,13 +56,10 @@ class NewsListViewModelTest {
         )
         coEvery { getTopHeadlinesUseCase() } returns successFlow
 
-        // WHEN - create ViewModel which starts the fetch in init
         viewModel = NewsListViewModel(getTopHeadlinesUseCase)
 
-        // Ensure all coroutines launched on the test dispatcher complete
         advanceUntilIdle()
 
-        // THEN - final state should reflect success
         val final = viewModel.uiState.value
         assertFalse(final.isLoading)
         assertEquals(1, final.articles.size)
@@ -74,7 +71,7 @@ class NewsListViewModelTest {
     fun `init should fetch headlines and update state from Loading to Error`() = runTest {
         Dispatchers.setMain(StandardTestDispatcher(testScheduler))
 
-        // GIVEN
+
         val errorMessage = "Network Error"
         val errorFlow = flowOf(
             ResultState.Loading,
@@ -86,7 +83,7 @@ class NewsListViewModelTest {
         viewModel = NewsListViewModel(getTopHeadlinesUseCase)
         advanceUntilIdle()
 
-        // THEN
+
         val final = viewModel.uiState.value
         assertFalse(final.isLoading)
         assertTrue(final.articles.isEmpty())
@@ -97,7 +94,7 @@ class NewsListViewModelTest {
     fun `onEvent OnArticleClick should emit correct navigation effect`() = runTest {
         Dispatchers.setMain(StandardTestDispatcher(testScheduler))
 
-        // Provide a simple flow so the ViewModel init won't fail/hang
+
         coEvery { getTopHeadlinesUseCase() } returns flowOf(ResultState.Loading)
 
         viewModel = NewsListViewModel(getTopHeadlinesUseCase)
@@ -115,7 +112,7 @@ class NewsListViewModelTest {
         )
         val event = NewsListEvent.OnArticleClick(article)
 
-        // Collect the navigationEffect and then trigger the event
+
         viewModel.navigationEffect.test {
             viewModel.onEvent(event)
 
